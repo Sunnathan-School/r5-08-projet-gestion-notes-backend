@@ -1,12 +1,17 @@
 {
   "name": "iut-laval-grades-api",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "description": "API pour la gestion des notes et diplômes",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn src/index.ts",
+    "start:prod": "NODE_ENV=production node dist/index.js",
+    "db:setup": "ts-node src/scripts/dbSetup.ts",
     "build": "tsc",
+    "dev": "ts-node-dev --respawn src/index.ts",
     "test": "jest --detectOpenHandles",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
