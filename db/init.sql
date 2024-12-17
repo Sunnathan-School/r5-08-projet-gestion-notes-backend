@@ -1,4 +1,4 @@
-CREATE TABLE students (
+CREATE TABLE IF NOT EXISTS students (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE students (
   student_id VARCHAR(50) UNIQUE NOT NULL
 );
 
-CREATE TABLE courses (
+CREATE TABLE IF NOT EXISTS courses (
   id SERIAL PRIMARY KEY,
   code VARCHAR(20) UNIQUE NOT NULL,
   name VARCHAR(255) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE courses (
   description TEXT
 );
 
-CREATE TABLE grades (
+CREATE TABLE IF NOT EXISTS grades (
   id SERIAL PRIMARY KEY,
   student_id INTEGER REFERENCES students(id),
   course_id INTEGER REFERENCES courses(id),
@@ -25,7 +25,7 @@ CREATE TABLE grades (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE professors (
+CREATE TABLE IF NOT EXISTS professors (
   id SERIAL PRIMARY KEY,
   first_name VARCHAR(100) NOT NULL,
   last_name VARCHAR(100) NOT NULL,
