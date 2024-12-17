@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -651,6 +652,54 @@
           },
           "404": {
             "description": "Note non trouvée"
+          }
+        }
+      }
+    },
+    "/grades/student/{studentId}/transcript": {
+      "get": {
+        "summary": "Génère le relevé de notes d'un étudiant",
+        "tags": [
+          "Grades"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "studentId",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "academicYear",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{4}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Relevé de notes en PDF",
+            "content": {
+              "application/pdf": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Étudiant non trouvé ou pas de notes"
           }
         }
       }
