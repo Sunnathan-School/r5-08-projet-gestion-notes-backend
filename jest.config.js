@@ -9,7 +9,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/src/test/setup.ts'],
   coverageReporters: ['html', 'text'],
   collectCoverageFrom: [
-    'src/**/*.{ts,tsx}', // Include all TypeScript files in the src directory
-    '!src/**/*.d.ts', // Exclude TypeScript declaration files
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.d.ts',
   ],
 };
