@@ -2,7 +2,7 @@ import {Pool} from 'pg';
 import dotenv from 'dotenv';
 
 if (process.env.NODE_ENV === 'test') {
-    console.log('Using test environment');
+    // console.log('Using test environment');
     dotenv.config({path: '.env.test'});
 } else {
     console.log('Using ', process.env.NODE_ENV, ' environment');
