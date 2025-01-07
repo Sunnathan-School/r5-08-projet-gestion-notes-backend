@@ -29,14 +29,6 @@ describe('GET /api/courses', () => {
         expect(response.body).toBeInstanceOf(Array);
     });
 
-    it('should return Token missing', async () => {
-        const response = await request(app)
-            .get('/api/courses')
-        expect(response.status).toBe(401);
-        expect(response.body).toHaveProperty("error");
-        expect(response.body.error).toBe("Token manquant");
-    });
-
     // it('should return 404 for a non-existent course', async () => {
     //     const response = await request(app)
     //         .get('/api/courses/999')

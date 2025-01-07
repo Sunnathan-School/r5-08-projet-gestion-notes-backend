@@ -39,3 +39,22 @@ describe('GET /auth/login', () => {
         expect(response.body).toHaveProperty('token');
     });
 })
+
+describe("Auth Middleware - Token validation", () => {
+
+    it('should return Token missing', async () => {
+        const response = await request(app)
+            .get('/api/courses')
+        expect(response.status).toBe(401);
+        expect(response.body).toHaveProperty("error");
+        expect(response.body.error).toBe("Token manquant");
+    });
+
+    it('should return Token invalide', async () => {
+        const response = await request(app)
+            .get('/api/courses')
+            .set('Authorization', `Bearer INVALID_TOKEN`);
+        expect(response.body).toHaveProperty("error");
+        expect(response.body.error).toBe("Token invalide");
+    });
+});
