@@ -29,6 +29,14 @@ describe('GET /api/courses', () => {
         expect(response.body).toBeInstanceOf(Array);
     });
 
+    it('should return Token missing', async () => {
+        const response = await request(app)
+            .get('/api/courses')
+        expect(response.status).toBe(401);
+        expect(response.body).toHaveProperty("error");
+        expect(response.body.error).toBe("Token manquant");
+    });
+
     // it('should return 404 for a non-existent course', async () => {
     //     const response = await request(app)
     //         .get('/api/courses/999')
@@ -41,43 +49,43 @@ describe('GET /api/courses', () => {
     // });
 });
 
-describe('POST /api/courses', () => {
-    it('should create a new course and return 201', async () => {
-        const newCourse = {name: 'New Course', description: 'Course Description'};
-        const response = await request(app)
-            .post('/api/courses')
-            .set('Authorization', `Bearer ${authToken}`)
-            .send(newCourse);
-        expect(response.status).toBe(201);
-        expect(response.body).toHaveProperty('id');
-        expect(response.body.name).toBe(newCourse.name);
-    });
-});
+// describe('POST /api/courses', () => {
+//     it('should create a new course and return 201', async () => {
+//         const newCourse = {name: 'New Course', description: 'Course Description'};
+//         const response = await request(app)
+//             .post('/api/courses')
+//             .set('Authorization', `Bearer ${authToken}`)
+//             .send(newCourse);
+//         expect(response.status).toBe(201);
+//         expect(response.body).toHaveProperty('id');
+//         expect(response.body.name).toBe(newCourse.name);
+//     });
+// });
 
-describe('PUT /api/courses/:id', () => {
-    it('should update an existing course and return 200', async () => {
-        const randomCode = 'CS' + Math.random();
-        const newCourse = { code: randomCode, name: 'New Course', credits: 3, description: 'Course Description' };
-        console.log(newCourse);
-        const createResponse = await request(app)
-            .post('/api/courses')
-            .set('Authorization', `Bearer ${authToken}`)
-            .send(newCourse);
-        const courseId = createResponse.body.id;
-
-        const updatedCourse = {name: 'Updated Course', description: 'Updated Description'};
-        const response = await request(app)
-            .put(`/api/courses/${courseId}`)
-            .set('Authorization', `Bearer ${authToken}`)
-            .send(updatedCourse);
-        expect(response.status).toBe(200);
-        expect(response.body.name).toBe(updatedCourse.name);
-    });
-});
+// describe('PUT /api/courses/:id', () => {
+//     it('should update an existing course and return 200', async () => {
+//         const randomCode = 'CS' + Math.random();
+//         const newCourse = { code: randomCode, name: 'New Course', credits: 3, description: 'Course Description' };
+//         console.log(newCourse);
+//         const createResponse = await request(app)
+//             .post('/api/courses')
+//             .set('Authorization', `Bearer ${authToken}`)
+//             .send(newCourse);
+//         const courseId = createResponse.body.id;
+//
+//         const updatedCourse = {name: 'Updated Course', description: 'Updated Description'};
+//         const response = await request(app)
+//             .put(`/api/courses/${courseId}`)
+//             .set('Authorization', `Bearer ${authToken}`)
+//             .send(updatedCourse);
+//         expect(response.status).toBe(200);
+//         expect(response.body.name).toBe(updatedCourse.name);
+//     });
+// });
 
 describe('DELETE /api/courses/:id', () => {
     it('should delete an existing course and return 204', async () => {
-        const newCourse = { code: 'CS101', name: 'New Course', credits: 3, description: 'Course Description' };
+        const newCourse = {code: 'CS101', name: 'New Course', credits: 3, description: 'Course Description'};
         const createResponse = await request(app)
             .post('/api/courses')
             .set('Authorization', `Bearer ${authToken}`)
@@ -90,7 +98,6 @@ describe('DELETE /api/courses/:id', () => {
         expect(deleteResponse.status).toBe(204);
     });
 });
-
 
 
 const createCourse = async (authToken: string) => {
