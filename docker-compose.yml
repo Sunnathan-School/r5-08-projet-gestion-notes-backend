@@ -15,5 +15,26 @@ services:
       - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
       - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
 
+  postgres-test:
+    profiles:
+      - test
+    image: postgres:16-alpine
+    container_name: iut-laval-grades-db-test
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: iut_laval_grades-test
+    ports:
+      - '5435:5432'
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+
+  adminer:
+    image: adminer
+    container_name: iut-laval-grades-adminer
+    ports:
+      - '8080:8080'
+
 volumes:
   postgres_data:
